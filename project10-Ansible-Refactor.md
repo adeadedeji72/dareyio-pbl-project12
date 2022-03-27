@@ -29,3 +29,9 @@ This project will be triggered by completion of your existing ansible project. C
 
 ![](build_copy.jpg)
 
+7. Test by making some change in README.MD file inside the ansible-config-mgt repository (right inside master branch).
+If both Jenkins jobs have completed one after another – you shall see your files inside /home/ubuntu/ansible-config-artifact directory and it will be updated with every commit to your master branch.
+
+Now your Jenkins pipeline is more neat and clean.
+
+![](tree_artifacts.jpg)
