@@ -18,8 +18,14 @@ chmod -R 0777 /home/ubuntu/ansible-config-artifact
 ~~~
 3. Install copy artifacts plugin in Jenkins server
 
-4. Create a new Freestyle project (you have done it in Project 9) and name it save_artifacts.
+4. Create a new Freestyle project and name it save_artifacts.
 
 This project will be triggered by completion of your existing ansible project. Configure it accordingly:
 
 ![](keep_builds.jpg)
+![](build_trigger_stable.jpg)
+
+6. The main idea of *save_artifacts* project is to save artifacts into **/home/ubuntu/ansible-config-artifact** directory. To achieve this, create a Build step and choose *Copy artifacts from other project*, specify *ansible* as a source project and **/home/ubuntu/ansible-config-artifact** as a target directory.
+
+![](build_copy.jpg)
+
