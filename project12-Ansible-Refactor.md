@@ -206,3 +206,43 @@ The **main.yml** may consist of following tasks:
 ### **REFERENCE WEBSERVER ROLE** ###
 **Step 4** – Reference ‘Webserver’ role
 Within the static-assignments folder, create a new assignment for uat-webservers uat-webservers.yml. This is where you will reference the role.
+~~~
+  ---
+- hosts: uat-webservers
+  roles:
+     - webserver
+~~~
+
+The entry point to our ansible configuration is the site.yml file. Therefore, refer the uat-webservers.yml role inside site.yml.
+
+So, we should have this in site.yml
+~~~
+  ---
+- hosts: all
+- import_playbook: ../static-assignments/common.yml
+
+- hosts: uat-webservers
+- import_playbook: ../static-assignments/uat-webservers.yml
+~~~
+
+ ### Step 5 – Commit & Test ###
+Commit your changes, create a Pull Request and merge them to master branch, make sure webhook triggered two consequent Jenkins jobs, they ran successfully and copied all the files to your Jenkins-Ansible server into /home/ubuntu/ansible-config-mgt/ directory.
+
+Now run the playbook against your uat inventory and see what happens:
+~~~
+ansible-playbook -i /home/ubuntu/ansible-config-mgt/inventory/uat.yml /home/ubuntu/ansible-config-mgt/playbooks/site.yml
+~~~
+
+  You should be able to see both of your UAT Web servers configured and you can try to reach them from your browser:
+~~~
+http://<Web1-UAT-Server-Public-IP-or-Public-DNS-Name>/index.php
+~~~
+or
+~~~
+http://<Web1-UAT-Server-Public-IP-or-Public-DNS-Name>/index.php
+~~~
+Your Ansible architecture now looks like this:
+  
+  ![(project12_architechture.png)
+  
+
