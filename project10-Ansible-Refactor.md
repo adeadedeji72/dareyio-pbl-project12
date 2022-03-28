@@ -85,8 +85,16 @@ Since you need to apply some tasks to your dev servers and wireshark is already 
  
  Run:
  ~~~
- sudo ansible-playbook -i /home/ubuntu/ansible-config-artifact/inventory/dev.yml /home/ubuntu/ansible-config-artifact/playbooks/site.yaml
+ ansible-playbook -i /home/ubuntu/ansible-config-artifact/inventory/dev.yml /home/ubuntu/ansible-config-artifact/playbooks/site.yml
  ~~~
+ 
+ ![](ansible_run_output.jpg)
+ 
+ Make sure that wireshark is deleted on all the servers by running wireshark --version
+ 
+ ## **CONFIGURE UAT WEBSERVERS WITH A ROLE ‘WEBSERVER’** ##
+ 
+ ##**Step 3** – Configure UAT Webservers with a role ‘Webserver’##
 
 
 
