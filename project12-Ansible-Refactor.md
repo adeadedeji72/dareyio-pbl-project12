@@ -155,7 +155,7 @@ The entire folder structure should look like below, but if you create it manuall
 
 4. In /etc/ansible/ansible.cfg file uncomment roles_path string and provide a full path to your roles directory roles_path    = /home/ubuntu/ansible-config-mgt/roles, so Ansible could know where to find configured roles.
 
-![](
+![](ansible-roles-cfg.jpg)
 
 5. Lets add some logic to the webserver role. Go into tasks directory, and within the main.yml file, start writing configuration tasks to do the following:
 
@@ -163,5 +163,43 @@ The entire folder structure should look like below, but if you create it manuall
 * Clone Tooling website from GitHub https://github.com/<your-name>/tooling.git.
 * Ensure the tooling website code is deployed to /var/www/html on each of 2 UAT Web servers.
 * Make sure httpd service is started
-Your main.yml may consist of following tasks:
+  
+The **main.yml** may consist of following tasks:
+~~~
+  ---
+- name: install apache
+  become: true
+  ansible.builtin.yum:
+    name: "httpd"
+    state: present
+
+- name: install git
+  become: true
+  ansible.builtin.yum:
+    name: "git"
+    state: present
+
+- name: clone a repo
+  become: true
+  ansible.builtin.git:
+    repo: https://github.com/<your-name>/tooling.git
+    dest: /var/www/html
+    force: yes
+
+- name: copy html content to one level up
+  become: true
+  command: cp -r /var/www/html/html/ /var/www/
+
+- name: Start service httpd, if not started
+  become: true
+  ansible.builtin.service:
+    name: httpd
+    state: started
+
+- name: recursively remove /var/www/html/html/ directory
+  become: true
+  ansible.builtin.file:
+    path: /var/www/html/html
+    state: absent
+~~~
 
