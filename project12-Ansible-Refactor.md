@@ -95,6 +95,55 @@ Since you need to apply some tasks to your dev servers and wireshark is already 
  ## **CONFIGURE UAT WEBSERVERS WITH A ROLE ‘WEBSERVER’** ##
  
  ### **Step 3** – Configure UAT Webservers with a role ‘Webserver’ ###
+We have our nice and clean dev environment, so let us put it aside and configure 2 new Web Servers as uat. We could write tasks to configure Web Servers in the same playbook, but it would be too messy, instead, we will use a dedicated role to make our configuration reusable.
 
+1. Launch 2 fresh EC2 instances using RHEL 8 image, we will use them as our uat servers, so give them names accordingly – Web1-UAT and Web2-UAT.
+2. To create a role, you must create a directory called roles/, relative to the playbook file or in /etc/ansible/ directory.
+There are two ways how you can create this folder structure:
+
+A. Use an Ansible utility called ansible-galaxy inside ansible-config-mgt/roles directory (you need to create roles directory upfront)
+~~~
+mkdir roles
+cd roles
+ansible-galaxy init webserver
+~~~
+B. Create the directory/files structure manually
+Note: You can choose either way, but since you store all your codes in GitHub, it is recommended to create folders and files there rather than locally on Jenkins-Ansible server.
+
+The entire folder structure should look like below, but if you create it manually – you can skip creating tests, files, and vars or remove them if you used ansible-galaxy
+~~~
+└── webserver
+    ├── README.md
+    ├── defaults
+    │   └── main.yml
+    ├── files
+    ├── handlers
+    │   └── main.yml
+    ├── meta
+    │   └── main.yml
+    ├── tasks
+    │   └── main.yml
+    ├── templates
+    ├── tests
+    │   ├── inventory
+    │   └── test.yml
+    └── vars
+        └── main.yml
+  ~~~
+  
+  After removing unnecessary directories and files, the roles structure should look like this
+~~~
+└── webserver
+    ├── README.md
+    ├── defaults
+    │   └── main.yml
+    ├── handlers
+    │   └── main.yml
+    ├── meta
+    │   └── main.yml
+    ├── tasks
+    │   └── main.yml
+    └── templates
+~~~
 
 
