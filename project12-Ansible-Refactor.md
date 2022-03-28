@@ -243,6 +243,6 @@ http://<Web1-UAT-Server-Public-IP-or-Public-DNS-Name>/index.php
 ~~~
 Your Ansible architecture now looks like this:
   
-  ![(project12_architechture.png)
+  ![](project12_architechture.png)
   
 
