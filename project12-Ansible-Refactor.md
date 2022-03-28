@@ -146,4 +146,22 @@ The entire folder structure should look like below, but if you create it manuall
     └── templates
 ~~~
 
+3. Update your inventory ansible-config-mgt/inventory/uat.yml file with IP addresses of your 2 UAT Web servers
+~~~
+[uat-webservers]
+<Web1-UAT-Server-Private-IP-Address> ansible_ssh_user='ec2-user' ansible_ssh_private_key_file=<path-to-.pem-private-key>
+<Web2-UAT-Server-Private-IP-Address> ansible_ssh_user='ec2-user' ansible_ssh_private_key_file=<path-to-.pem-private-key>
+~~~
+
+4. In /etc/ansible/ansible.cfg file uncomment roles_path string and provide a full path to your roles directory roles_path    = /home/ubuntu/ansible-config-mgt/roles, so Ansible could know where to find configured roles.
+
+![](
+
+5. Lets add some logic to the webserver role. Go into tasks directory, and within the main.yml file, start writing configuration tasks to do the following:
+
+* Install and configure Apache (httpd service)
+* Clone Tooling website from GitHub https://github.com/<your-name>/tooling.git.
+* Ensure the tooling website code is deployed to /var/www/html on each of 2 UAT Web servers.
+* Make sure httpd service is started
+Your main.yml may consist of following tasks:
 
